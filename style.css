@@ -1,0 +1,430 @@
+/* Google Fonts 임포트 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nanum+Myeongjo:wght@400;700&display=swap');
+
+/* ===== 0. 기본 설정 (Mobile First & 가독성 향상) ===== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Myeongjo', serif;
+    color: #333;
+    background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+    line-height: 1.7;
+    position: relative;
+    overflow-x: hidden;
+    font-size: 18px; /* 기본 폰트 크기 18px로 상향 (가독성 최적화) */
+}
+
+/* 배경 오버레이 */
+.background-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    z-index: -1;
+}
+
+/* ===== 1. 헤더 (Header) ===== */
+header {
+    text-align: center;
+    padding: 40px 20px 0;
+    background-color: #fff8e1;
+    color: #4a3a00;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8em; /* 크기 키움 */
+    margin: 0 0 5px;
+}
+
+.glow-text {
+    color: #a08c3a;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.sub-text {
+    font-size: 1.3em; /* 크기 키움 */
+    font-weight: 700;
+}
+.date-text {
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.hero-image {
+    width: 90%;
+    height: auto;
+    max-height: 350px; /* 높이 약간 키움 */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+    border: 5px solid #d4af37;
+    opacity: 0; /* 애니메이션을 위해 초기 투명도 0 */
+    transform: translateY(20px); /* 애니메이션을 위해 초기 위치 조정 */
+}
+
+/* ===== 2. 타임라인 (Timeline) ===== */
+section.timeline {
+    padding: 40px 20px;
+    max-width: 90%;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em; /* 크기 키움 */
+    color: #a08c3a;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.timeline-item {
+    margin-bottom: 40px;
+    padding: 15px;
+    border-left: 3px solid #d4af37;
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    opacity: 0; /* 애니메이션을 위해 초기 투명도 0 */
+    transform: translateY(20px); /* 애니메이션을 위해 초기 위치 조정 */
+}
+
+.timeline-item.animated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.timeline-item.animated,
+.hero-image.animated,
+.message.animated,
+.timeline-item img.animated {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.timeline-year {
+    margin: 0 0 10px;
+    font-size: 1.6em; /* 크기 키움 */
+    color: #7a6a00;
+    font-weight: 700;
+}
+
+.timeline-item p {
+    font-size: 1.1em; /* 크기 키움 */
+    color: #555;
+}
+
+/* 타임라인 항목 내 개별 이미지 (1~2장 있는 경우) */
+.timeline-item img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 5px 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    display: inline-block;
+    vertical-align: top;
+    opacity: 0; /* 애니메이션을 위해 초기 투명도 0 */
+    transform: translateY(10px); /* 애니메이션을 위해 초기 위치 조정 */
+}
+
+.timeline-item img.animated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out 0.2s, transform 0.6s ease-out 0.2s; /* 약간 딜레이 */
+}
+
+/* 2장 배치 조정 */
+.timeline-item img:nth-of-type(2) {
+    margin-left: 10px;
+}
+/* 1장만 있는 경우 너비 */
+.timeline-item:not(:has(img:nth-of-type(2))) img:only-of-type {
+    width: 100%;
+    margin-left: 0;
+    display: block;
+}
+
+/* 2-1. 가족의 추억 섹션 (여러 장의 사진) - Grid 배치로 수정 */
+/*.timeline-item:has(img:nth-of-type(3)) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px; /* 사진 사이 간격 */
+    align-items: center;
+    padding: 15px;
+}*/
+
+*/.timeline-item:has(img:nth-of-type(3)) .timeline-year,
+.timeline-item:has(img:nth-of-type(3)) p {
+    grid-column: 1 / -1; /* H3와 P는 전체 너비 */
+}*/
+
+/*.timeline-item:has(img:nth-of-type(3)) img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0; /* 애니메이션을 위해 초기 투명도 0 */
+    transform: translateY(10px); /* 애니메이션을 위해 초기 위치 조정 */
+}*/
+
+
+/* ===== 3. 메시지 섹션 (Message) ===== */
+.message {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff8e1;
+    color: #4a3a00;
+    border-radius: 10px;
+    max-width: 90%;
+    margin: 30px auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    opacity: 0; /* 애니메이션을 위해 초기 투명도 0 */
+    transform: translateY(20px); /* 애니메이션을 위해 초기 위치 조정 */
+}
+
+.message-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em; /* 크기 키움 */
+    margin-bottom: 15px;
+    color: #a08c3a;
+}
+.message-body {
+    font-size: 1.2em; /* 크기 키움 */
+    max-width: 700px;
+    margin: 10px auto;
+    line-height: 1.8;
+}
+.signature {
+    font-size: 1.3em; /* 크기 키움 */
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ff69b4;
+}
+
+/* ===== 4. 푸터 (Footer) & 버튼 애니메이션 ===== */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #f1e7a5;
+    margin-top: 30px;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 용돈 버튼 - 모바일 터치 최적화 */
+.gift-button {
+    display: block;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 15px 10px;
+    font-size: 1.3em; /* 크기 키움 */
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(45deg, #ffd700, #ff8c00);
+    text-decoration: none;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+/* ... (기존 버튼, 로딩 애니메이션 CSS 유지) ... */
+.status-box {
+    padding: 30px 20px;
+    border: 3px solid #ffcc00;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    font-size: 1.2em; /* 크기 키움 */
+    font-weight: 700;
+    color: #a08c3a;
+    transition: all 0.5s;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #ffd700;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1.5s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.status-box.success {
+    border-color: #38c172;
+    background-color: #e6ffed;
+    color: #1e7e34;
+    padding: 40px 20px;
+}
+
+.success-animation {
+    display: none;
+    margin-top: 20px;
+    font-size: 3em;
+    animation: pulse 1s infinite alternate;
+}
+
+.success-animation::before {
+    content: '⭐ 💰 🎉';
+    display: block;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* 버튼 hover/active 스타일 제거 */
+#gift-button:hover, #gift-button:active {
+    transform: none !important;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 데스크톱 환경을 위한 미디어 쿼리 */
+@media (min-width: 768px) {
+    body {
+        font-size: 20px; /* PC 환경에서 더 크게 */
+    }
+    .hero-image {
+        max-height: 500px;
+    }
+    .timeline-item {
+        max-width: 650px; /* 타임라인 아이템 너비 약간 확장 */
+        margin: 40px auto;
+    }
+    /* 타임라인 이미지 배치 (PC에서 두 장 나란히) */
+    .timeline-item:has(img:nth-of-type(2)) img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    /* 가족의 추억 섹션 (PC에서 3열 배치) */
+    /*.timeline-item:has(img:nth-of-type(3)) {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }*/
+}
+
+/* ===== 2-1. [추가] 가족의 추억 섹션 전용 갤러리 스타일 (이미지 3개 이상) ===== */
+
+/* 해당 항목 내부 이미지를 담을 컨테이너 생성 */
+.timeline-item:has(img:nth-of-type(3)) {
+    /* 이 항목 자체는 Flexbox로 설정하여 제목과 텍스트 아래에 이미지 그룹이 오도록 함 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 전체 요소를 중앙 정렬 */
+}
+
+/* 이미지들을 담을 그룹 컨테이너 */
+.timeline-item:has(img:nth-of-type(3)) .image-group {
+    display: grid;
+    /* 모바일 기본 2열, 사진 6장이면 3줄에 걸쳐 배치 */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 8px; /* 사진 사이 간격 */
+    width: 100%; /* 부모 너비를 따라감 */
+    margin: 10px 0 15px;
+}
+
+/* 이미지 3개 이상 항목의 개별 이미지 스타일 재정의 */
+.timeline-item:has(img:nth-of-type(3)) img {
+    /* 애니메이션 속성 외의 나머지 속성을 덮어씀 */
+    width: 100%;
+    height: 120px; /* 갤러리처럼 보이도록 고정 높이 */
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0 !important; /* 이미지 사이의 기존 마진 제거 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+}
+
+
+/* PC 환경에서는 3열로 변경 */
+@media (min-width: 768px) {
+    .timeline-item:has(img:nth-of-type(3)) .image-group {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    .timeline-item:has(img:nth-of-type(3)) img {
+        height: 180px; 
+    }
+}
+
+/* ===== 3. 메시지 섹션 (Message) [독립 스타일 적용] ===== */
+.message {
+    text-align: center; /* ⭐ 중앙 정렬 적용 */
+    padding: 40px 20px;
+    background: #fff8e1; /* ⭐ 배경색 적용 */
+    color: #4a3a00;
+    border-radius: 10px;
+    max-width: 90%;
+    margin: 30px auto; /* ⭐ 중앙 배치 */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.message-title {
+    font-family: 'Playfair Display', serif; /* ⭐ 폰트 적용 */
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    color: #a08c3a;
+}
+.message-body {
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 10px auto;
+    line-height: 1.8;
+}
+.signature {
+    font-size: 1.3em;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #ff69b4;
+}
+
+/* 메시지 섹션 애니메이션 (필수) */
+.message.animated {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* PC 환경 미디어 쿼리 내 메시지 섹션 스타일 */
+@media (min-width: 768px) {
+    .message-title {
+        font-size: 2.8em;
+    }
+    .message-body {
+        font-size: 1.3em;
+    }
+    .signature {
+        font-size: 1.4em;
+    }
+    .message {
+        padding: 50px 30px; /* PC 환경에서 패딩 넓게 */
+    }
+}
